@@ -89,7 +89,7 @@ function CreateWorkspace() {
           </h2>
           <div className="mt-8 flex gap-2 items-center">
             <EmojiPickerComponent setEmojiIcon={(v) => setEmoji(v)}>
-              <Button variant="outline">{emoji ? emoji : <SmilePlus />}</Button>
+              <Button variant="outline" >{emoji ? emoji : <SmilePlus/>}</Button>
             </EmojiPickerComponent>
             <Input
               placeholder="Workspace Name"

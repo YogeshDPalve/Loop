@@ -1,21 +1,22 @@
-import React from 'react'
-import SideNav from './_components/SideNav'
-import DocumentEditorSection from './_components/DocumentEditorSection'
+import React from "react";
+
+
+import SideNav from "../../_components/SideNav";
+import DocumentEditorSection from "../../_components/DocumentEditorSection";
 
 const WorkspaceDocument = ({ params }) => {
-  
   return (
     <div>
       {/* Side Nav */}
-      <div className=' '>
-        <SideNav params={params}/>
+      <div className=" ">
+        <SideNav params={params} />
       </div>
       {/* Document */}
-      <div className='md:ml-72' >
-        <DocumentEditorSection params={params}/>
+      <div className="md:ml-72">
+        <DocumentEditorSection params={params} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WorkspaceDocument
+export default WorkspaceDocument;
