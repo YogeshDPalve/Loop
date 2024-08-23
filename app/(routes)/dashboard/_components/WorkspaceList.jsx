@@ -1,3 +1,4 @@
+// WorkspaceList.jsx
 "use client";
 import { Button } from "@/components/ui/button";
 import { useAuth, useUser } from "@clerk/nextjs";
@@ -8,17 +9,20 @@ import React, { useEffect, useState } from "react";
 import WorkspaceItemList from "./WorkspaceItemList";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+import { WorkspaceListSkeleton } from "./WorkspaceListSkeleton";
 
 function WorkspaceList() {
   const { user } = useUser();
   const { orgId } = useAuth();
   const [workspaceList, setWorkspaceList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     user && getWorkspaceList();
   }, [orgId, user]);
+
   const getWorkspaceList = async () => {
-    setWorkspaceList([]);
+    setLoading(true);
     const q = query(
       collection(db, "Workspace"),
       where(
@@ -33,7 +37,13 @@ function WorkspaceList() {
       console.log(doc.data());
       setWorkspaceList((prev) => [...prev, doc.data()]);
     });
+    setLoading(false);
   };
+
+  if (loading) {
+    return <WorkspaceListSkeleton />;
+  }
+
   return (
     <div className="my-10 p-10 md:px-24 lg:px-36 xl:px-52">
       <div className="flex justify-between">
@@ -53,7 +63,7 @@ function WorkspaceList() {
         </div>
       </div>
 
-      {workspaceList?.length == 0 ? (
+      {workspaceList?.length === 0 ? (
         <div className="flex flex-col justify-center items-center my-10">
           <Image
             src={"/workspace.png"}
@@ -61,9 +71,7 @@ function WorkspaceList() {
             height={200}
             alt="workspace"
           />
-
           <h2>Create a new workspace</h2>
-
           <Link href={"/createworkspace"}>
             <Button className="my-3">+ New Workspace</Button>
           </Link>

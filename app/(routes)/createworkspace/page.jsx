@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import uuid4 from "uuid4";
+import { Toaster, toast } from "react-hot-toast"; // Import toaster and toast
 
 function CreateWorkspace() {
   const [coverImage, setCoverImage] = useState("/cover.png");
@@ -25,6 +26,11 @@ function CreateWorkspace() {
    * Used to create new workspace and save data in database
    */
   const OnCreateWorkspace = async () => {
+    if (!emoji) {
+      toast.error("Please select an emoji for your workspace!"); // Show error toast
+      return;
+    }
+
     setLoading(true);
     const workspaceId = Date.now();
     const result = await setDoc(doc(db, "Workspace", workspaceId.toString()), {
@@ -55,16 +61,18 @@ function CreateWorkspace() {
     setLoading(false);
     router.replace("/workspace/" + workspaceId + "/" + docId);
   };
+
   return (
     <div className="p-10 md:px-36 lg:px-64 xl:px-96 py-28">
+      <Toaster /> {/* Add Toaster for notifications */}
       <div className="shadow-2xl rounded-xl">
         {/* Cover Image  */}
         <CoverPicker setNewCover={(v) => setCoverImage(v)}>
           <div className="relative group cursor-pointer">
             <h2
               className="hidden absolute p-4 w-full h-full
-                    items-center group-hover:flex
-                    justify-center  "
+                        items-center group-hover:flex
+                        justify-center"
             >
               Change Cover
             </h2>
@@ -74,7 +82,6 @@ function CreateWorkspace() {
                 width={400}
                 height={400}
                 className="w-full h-[180px] object-cover rounded-t-xl"
-                alt='coverImage'
               />
             </div>
           </div>
@@ -84,12 +91,12 @@ function CreateWorkspace() {
         <div className="p-12">
           <h2 className="font-medium text-xl">Create a new workspace</h2>
           <h2 className="text-sm mt-2">
-            This is a shared space where you can collaborate wth your team. You
+            This is a shared space where you can collaborate with your team. You
             can always rename it later.
           </h2>
           <div className="mt-8 flex gap-2 items-center">
             <EmojiPickerComponent setEmojiIcon={(v) => setEmoji(v)}>
-              <Button variant="outline" >{emoji ? emoji : <SmilePlus/>}</Button>
+              <Button variant="outline">{emoji ? emoji : <SmilePlus />}</Button>
             </EmojiPickerComponent>
             <Input
               placeholder="Workspace Name"
