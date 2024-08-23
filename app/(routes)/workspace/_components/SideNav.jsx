@@ -18,7 +18,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
-// import NotifiationBox from "./NotifiationBox";
+import NotifiationBox from "./NotifiationBox";
 
 const MAX_FILE = process.env.NEXT_PUBLIC_MAX_FILE_COUNT;
 
@@ -92,9 +92,9 @@ function SideNav({ params }) {
     >
       <div className="flex justify-between items-center">
         <Logo />
-        {/* <NotifiationBox>
+        <NotifiationBox>
           <Bell className="h-5 w-5 text-gray-500" />
-        </NotifiationBox> */}
+        </NotifiationBox>
       </div>
       <hr className="my-5"></hr>
       <div>
@@ -112,7 +112,7 @@ function SideNav({ params }) {
       {/* Progress Bar  */}
 
       <div className="absolute bottom-10 w-[85%]">
-        <Progress value={(documentList?.length / 5) * 100} />
+        <Progress value={(documentList?.length / MAX_FILE) * 100} />
         <h2 className="text-sm font-light my-2">
           <strong>{documentList?.length}</strong> Out of <strong>5</strong>{" "}
           files used
