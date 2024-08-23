@@ -1,6 +1,6 @@
 
 # Loop
-### watch projectt live [here](https://loop-collab.vercel.app/).
+### watch project live [here](https://loop-collab.vercel.app/).
 
 ![Homepage](https://github.com/YogeshDPalve/Loop/blob/main/Homepage.png)
 ![Dashboard](https://github.com/YogeshDPalve/Loop/blob/main/dashboard.png)
